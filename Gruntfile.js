@@ -30,6 +30,12 @@ module.exports = function(grunt) {
       }
     },
 
+    jshint: {
+      srcjs: ['<%= config.src %>/assets/js/*.js'],
+      options: {
+      }
+    },
+
     watch: {
       assemble: {
         files: ['<%= config.src %>/{content,data,templates}/{,*/}*.{md,hbs,yml}'],
@@ -107,6 +113,7 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'jshint',
     'clean',
     'copy',
     'stylus:compile',
