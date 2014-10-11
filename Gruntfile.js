@@ -1,27 +1,123 @@
-/*global module:false*/
+/*
+ * Generated on 2014-10-07
+ * generator-assemble v0.5.0
+ * https://github.com/assemble/generator-assemble
+ *
+ * Copyright (c) 2014 Hariadi Hinta
+ * Licensed under the MIT license.
+ */
+
+'use strict';
+
+// # Globbing
+// for performance reasons we're only matching one level down:
+// '<%= config.src %>/templates/pages/{,*/}*.hbs'
+// use this if you want to match all subfolders:
+// '<%= config.src %>/templates/pages/**/*.hbs'
+
 module.exports = function(grunt) {
+
+  require('time-grunt')(grunt);
+  require('load-grunt-tasks')(grunt);
 
   // Project configuration.
   grunt.initConfig({
-    // Metadata.
-    pkg: grunt.file.readJSON('package.json'),
-    banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
-      '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
-      '<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
-      '* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
-      ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
-    // Task configuration.
-    watch: {
+
+    config: {
+      src: 'src',
+      dist: 'dist',
+      vendorAssets: 'dist/vendor'
     },
-    contact: {
-    }
+
+    watch: {
+      assemble: {
+        files: ['<%= config.src %>/{content,data,templates}/{,*/}*.{md,hbs,yml}'],
+        tasks: ['assemble']
+      },
+      livereload: {
+        options: {
+          livereload: '<%= connect.options.livereload %>'
+        },
+        files: [
+          '<%= config.dist %>/{,*/}*.html',
+          '<%= config.dist %>/assets/{,*/}*.css',
+          '<%= config.dist %>/assets/{,*/}*.js',
+          '<%= config.dist %>/assets/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+        ]
+      }
+    },
+
+    connect: {
+      options: {
+        port: 9000,
+        livereload: 35729,
+        // change this to '0.0.0.0' to access the server from outside
+        hostname: 'localhost'
+      },
+      livereload: {
+        options: {
+          open: true,
+          base: [
+            '<%= config.dist %>'
+          ]
+        }
+      }
+    },
+
+    assemble: {
+      pages: {
+        options: {
+          flatten: true,
+          assets: '<%= config.dist %>/assets',
+          layout: '<%= config.src %>/templates/layouts/default.hbs',
+          data: '<%= config.src %>/data/*.{json,yml}',
+          partials: '<%= config.src %>/templates/partials/*.hbs'
+        },
+        files: {
+          '<%= config.dist %>/': ['<%= config.src %>/templates/pages/*.hbs']
+        }
+      }
+    },
+
+    copy: {
+      bootstrap: {
+        expand: true,
+        cwd: 'bower_components/bootstrap/dist',
+        src: '**',
+        dest: '<%= config.vendorAssets %>/bootstrap/'
+      },
+      assets: {
+        expand: true,
+        cwd: 'src/assets/',
+        src: '**',
+        dest: '<%= config.dist %>/assets/'
+      }
+    },
+
+    // Before generating any new files,
+    // remove any previously-created files.
+    clean: [
+      '<%= config.dist %>/**/*.{html,xml}'
+    ]
+
   });
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('assemble');
 
-  // Default task.
-  grunt.registerTask('default', ['concat']);
+  grunt.registerTask('server', [
+    'build',
+    'connect:livereload',
+    'watch'
+  ]);
+
+  grunt.registerTask('build', [
+    'clean',
+    'copy',
+    'assemble'
+  ]);
+
+  grunt.registerTask('default', [
+    'build'
+  ]);
 
 };

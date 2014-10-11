@@ -1,16 +1,35 @@
 {
-  "name": "pantuyev.com",
-  "version": "0.0.1",
-  "private": true,
+  "name": "pantuyevcom",
+  "description": "Personal site.",
+  "version": "0.1.0",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">=0.10"
+  },
+  "scripts": {
+    "test": "grunt assemble"
   },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-concat": "~0.4.0",
-    "grunt-contrib-stylus": "^0.20.0",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-nunjucks": "^0.1.4",
-    "nunjucks": "^1.1.0"
-  }
+    "assemble": "^0.4.42",
+    "grunt": "^0.4.5",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-connect": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-copy": "^0.5.0",
+    "load-grunt-tasks": "^0.6.0",
+    "time-grunt": "^1.0.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/ivanvpan/pantuyevcom/blob/master/LICENSE-MIT"
+    }
+  ],
+  "keywords": [
+    "assemble",
+    "templates",
+    "handlebars",
+    "site generator",
+    "site builder",
+    "grunt"
+  ]
 }
