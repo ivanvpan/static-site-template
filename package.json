@@ -1,6 +1,6 @@
 {
-  "name": "pantuyevcom",
-  "description": "Personal site.",
+  "name": "static-site-template",
+  "description": "A static site template.",
   "version": "0.1.0",
   "engines": {
     "node": ">=0.10"
@@ -21,7 +21,7 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/ivanvpan/pantuyevcom/blob/master/LICENSE-MIT"
+      "url": "https://github.com/ivanvpan/static-site-template/blob/master/LICENSE-MIT"
     }
   ],
   "keywords": [
