@@ -86,7 +86,8 @@ module.exports = function(grunt) {
 
     copy: {
       bootstrap: { expand: true, cwd: 'bower_components/bootstrap/dist', src: '**', dest: '<%= config.vendorAssets %>/bootstrap/'},
-      images: { expand: true, cwd: '<%= config.src %>/assets/images', src: '**', dest: '<%= config.dist %>/assets/images'}
+      images: { expand: true, cwd: '<%= config.src %>/assets/images', src: '**', dest: '<%= config.dist %>/assets/images'},
+      staticFiles: { expand: true, cwd: '<%= config.src %>/static', src: '*', dest: '<%= config.dist %>'}
     },
 
     // Before generating any new files,
