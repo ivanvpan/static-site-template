@@ -1,12 +1,3 @@
-/*
- * Generated on 2014-10-07
- * generator-assemble v0.5.0
- * https://github.com/assemble/generator-assemble
- *
- * Copyright (c) 2014 Hariadi Hinta
- * Licensed under the MIT license.
- */
-
 'use strict';
 
 // # Globbing
@@ -29,10 +20,24 @@ module.exports = function(grunt) {
       vendorAssets: 'dist/vendor'
     },
 
+    stylus: {
+      compile: {
+        options: {
+        },
+        files: {
+          '<%= config.dist %>/assets/css/main.css': '<%= config.src %>/assets/styles/index.styl'
+        }
+      }
+    },
+
     watch: {
       assemble: {
         files: ['<%= config.src %>/{content,data,templates}/{,*/}*.{md,hbs,yml}'],
         tasks: ['assemble']
+      },
+      styles: {
+        files: ['<%= config.src %>/assets/styles/*.styl'],
+        tasks: ['stylus']
       },
       livereload: {
         options: {
@@ -56,7 +61,7 @@ module.exports = function(grunt) {
       },
       livereload: {
         options: {
-          open: true,
+          open: false,
           base: [
             '<%= config.dist %>'
           ]
@@ -80,18 +85,8 @@ module.exports = function(grunt) {
     },
 
     copy: {
-      bootstrap: {
-        expand: true,
-        cwd: 'bower_components/bootstrap/dist',
-        src: '**',
-        dest: '<%= config.vendorAssets %>/bootstrap/'
-      },
-      assets: {
-        expand: true,
-        cwd: 'src/assets/',
-        src: '**',
-        dest: '<%= config.dist %>/assets/'
-      }
+      bootstrap: { expand: true, cwd: 'bower_components/bootstrap/dist', src: '**', dest: '<%= config.vendorAssets %>/bootstrap/'},
+      images: { expand: true, cwd: '<%= config.src %>/assets/images', src: '**', dest: '<%= config.dist %>/assets/images'}
     },
 
     // Before generating any new files,
@@ -113,6 +108,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
     'clean',
     'copy',
+    'stylus:compile',
     'assemble'
   ]);
 
